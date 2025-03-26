@@ -6,6 +6,8 @@ public class lee21 {
         Scanner sc = new Scanner(System.in);
         String str1 = sc.nextLine();
         String str2 = sc.nextLine();
+
+        //repeat code should build a function
         String[] strs1 = str1.replaceAll("[\\[\\]]","").split(",");
         String[] strs2 = str2.replaceAll("[\\[\\]]","").split(",");
 
@@ -44,31 +46,21 @@ public class lee21 {
 }
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
 
-        ListNode preNode = new ListNode();
-        ListNode firstNode = new ListNode();
-        firstNode.next  = preNode;
-
-        while (list1 !=null && list2 !=null){
-            ListNode newListNode = new ListNode();
-            if(list1.val<=list2.val){
-                newListNode.val = list1.val;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                current.next = list1;
                 list1 = list1.next;
-            }
-            else{
-                newListNode.val = list2.val;
+            } else {
+                current.next = list2;
                 list2 = list2.next;
             }
-            preNode.next = newListNode;
-            preNode = newListNode;
+            current = current.next;
         }
 
-        if(list1!= null){
-            preNode.next = list1;
-        }
-        else if(list2!=null){
-            preNode.next = list2;
-        }
-        return firstNode.next.next;
+        current.next = (list1 != null) ? list1 : list2;
+        return dummy.next;
     }
 }
